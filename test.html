@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllSafe API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .info { color: #3b82f6; }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #1d4ed8; }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 AllSafe API Test Page</h1>
+    
+    <div class="test-section">
+        <h2>1. Health Check</h2>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <div id="healthResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Contact Form Test</h2>
+        <form id="testForm">
+            <input type="text" id="name" placeholder="Name" value="Test User" required>
+            <input type="email" id="email" placeholder="Email" value="test@example.com" required>
+            <input type="text" id="company" placeholder="Company" value="Test Company">
+            <select id="service" required>
+                <option value="pentest">Penetration Testing</option>
+                <option value="audit">Security Audit</option>
+                <option value="training">Security Training</option>
+            </select>
+            <textarea id="message" placeholder="Message" rows="3" required>This is a test message from the API test page.</textarea>
+            <button type="submit">Submit Contact Form</button>
+        </form>
+        <div id="contactResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Get All Contacts (Admin)</h2>
+        <button onclick="testGetContacts()">Get Contacts</button>
+        <div id="contactsResult" class="result"></div>
+    </div>
+
+    <script>
+        async function testHealth() {
+            const result = document.getElementById('healthResult');
+            result.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+                result.className = 'result success';
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+                result.className = 'result error';
+            }
+        }
+
+        async function testGetContacts() {
+            const result = document.getElementById('contactsResult');
+            result.textContent = 'Loading contacts...';
+            
+            try {
+                const response = await fetch('/api/contacts');
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+                result.className = 'result success';
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+                result.className = 'result error';
+            }
+        }
+
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const result = document.getElementById('contactResult');
+            result.textContent = 'Submitting...';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value
+            };
+            
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+                result.className = 'result success';
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+                result.className = 'result error';
+            }
+        });
+
+        // Auto-test health on page load
+        window.addEventListener('load', testHealth);
+    </script>
+</body>
+</html>
