@@ -510,6 +510,12 @@ body {
     margin-bottom: 1rem;
 }
 
+.footer-logo img {
+    margin-right: 0.5rem;
+    height: 40px;
+    width: auto;
+}
+
 .footer-logo i {
     margin-right: 0.5rem;
     color: #2563eb;
