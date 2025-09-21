@@ -13,7 +13,10 @@
         <div class="nav-container">
             <div class="nav-logo">
                 <img src="images/bluelogo.png" alt="AllSafe Logo">
-                <span>AllSafe</span>
+                <div class="nav-brand">
+                    <span class="brand-name">AllSafe</span>
+                    <span class="brand-slogan">DETECT • DEFEND • SECURE</span>
+                </div>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
@@ -44,7 +47,7 @@
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">Secure Your Business with Trusted Cybersecurity</h1>
+                <h1 class="hero-title">Secure Your Business with <span class="auto-type"></span></h1>
                 <p class="hero-subtitle">Contract-based cybersecurity services for Kenyan SMEs with youth empowerment through internships</p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Get Free Consultation</a>
@@ -294,7 +297,10 @@
                 <div class="footer-section">
                     <div class="footer-logo">
                         <img src="images/bluelogo.png" alt="AllSafe Logo">
-                        <span>AllSafe</span>
+                        <div class="footer-brand-container">
+                            <span>AllSafe</span>
+                            <div class="footer-brand-slogan">Detect • Defend • Secure</div>
+                        </div>
                     </div>
                     <p>Your trusted cybersecurity partner in Kenya, protecting SMEs while empowering local talent.</p>
                 </div>
@@ -343,6 +349,20 @@
         </a>
     </div>
 
+    <!-- Typed.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <!-- Typed.js Configuration -->
+    <script>
+        var typed = new Typed('.auto-type', {
+            strings: ['Trusted Cybersecurity'],
+            typeSpeed: 130,
+            backSpeed: 130,
+            backDelay: 7000,
+            loop: true,
+        });
+    </script>
+    
     <script src="script.js"></script>
 </body>
 </html>
